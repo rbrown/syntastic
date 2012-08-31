@@ -23,8 +23,16 @@ if !exists("g:syntastic_less_options")
     let g:syntastic_less_options = "--no-color"
 endif
 
+if !exists("g:syntastic_less_use_less_lint")
+    let s:check_file = 'lessc'
+else
+    let s:check_file = 'node ' . expand('<sfile>:p:h') . '/less-lint.js'
+end
+
 function! SyntaxCheckers_less_GetLocList()
-    let makeprg = 'lessc '. g:syntastic_less_options .' '.  shellescape(expand('%')) . ' /dev/null'
+    let makeprg = s:check_file . ' ' . g:syntastic_less_options . ' ' .
+                \ shellescape(expand('%')) . ' /dev/null'
+    echo makeprg
 
     "lessc >= 1.2
     let errorformat = '%m in %f:%l:%c'
