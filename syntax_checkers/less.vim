@@ -32,7 +32,6 @@ end
 function! SyntaxCheckers_less_GetLocList()
     let makeprg = s:check_file . ' ' . g:syntastic_less_options . ' ' .
                 \ shellescape(expand('%')) . ' /dev/null'
-    echo makeprg
 
     "lessc >= 1.2
     let errorformat = '%m in %f:%l:%c'
